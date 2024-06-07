@@ -1,0 +1,136 @@
+<div class="text">REPORTES</div>
+
+<div class="p-3">
+
+    <div class="row ps-4 pe-4">
+        <div class="col-md-3 p-3 p-0">
+            <p>PUESTO DE TRABAJO</p>
+            <select class="form-select" [(ngModel)]="departamentosel" (change)="getempleados()">
+                <option value="{{item.id}}" *ngFor="let item of catdepartamentos">{{item.name}}</option>
+              </select>
+        </div>
+        <div class="col-md-3 p-3 pb-0">
+            <p>EMPLEADO</p>
+            <select class="form-select" aria-label="Default select example" [(ngModel)]="empleadosel"  [disabled]="catempleados.length==0">
+                <option value="{{item.id}}" *ngFor="let item of catempleados">{{item.nombre + " "+item.apellidop+ " " + item.apellidom }}</option>
+              </select>
+        </div>
+
+        <div class="col-auto p-3 p-0">
+            <p class="ms-3 me-3">SEMANA DEL AÑO</p>
+            <select class="form-select" [(ngModel)]="semanasel" (change)="semanacalendario()">
+                <option value="{{item}}" *ngFor="let item of arr_semanas">{{item}}</option>
+              </select>
+        </div>
+
+        <div class="col-auto p-3 p-0">
+          <p class="ms-3 me-3">SEMANA EN CALENDARIO</p>
+          <input type="number" class="form-control" [(ngModel)]="semanaselc" disabled>
+      </div>
+
+        <div class="col-auto">
+            <p>&nbsp;</p>
+            <div class="d-flex justify-content-center mt-3">
+                <button class="btn btn-dark p-2" (click)="consultar()"><i class='bx bx-search' ></i> CONSULTAR</button>
+                </div>    
+        </div>
+    </div>
+
+
+</div>
+
+<div class="ps-4 pe-4 mt-3 mb-3 pb-3 mt-4">
+
+  <div class="" *ngIf="calculado==false && loading==false">
+    <div class="p-4 rounded-3 bg-white w-100 d-flex justify-content-center">
+      <img src="assets/img/report2.jpg" style="width: 90%; max-width: 25rem;">
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4" *ngIf="loading">
+    <img src="assets/img/loadingreport.gif">
+  </div>
+
+<div class="rounded-3 bg-white p-3" *ngIf="calculado && loading==false">
+<h2 class="text-center" style="color: rgb(0, 87, 158);">{{nombreemp}}</h2>
+
+<div class="m-3 p-3" *ngFor="let dia of diassemana; let i = index">
+    <h5 class="text-center p-3 text-primary">{{dia}}</h5>
+    <p class="m-0 mb-3 text-center">{{reportedias[i].fecha | date}}</p>
+    <div class="row justify-content-center gap-3">
+        <div class="col-auto">
+            <diV class="bg-gr-1 rounded-3 p-3">
+               <p class="mb-1">CALENDARIZADAS</p>
+               <span class="fs-4 fw-bold text-center">{{reportedias[i].calendarizadas}}</span>
+            </diV>
+        </div>
+    
+        <div class="col-auto">
+            <diV class="bg-gr-1 rounded-3 p-3">
+               <p class="mb-1">CALENDARIZADAS VISITADAS</p>
+               <span class="fs-4 fw-bold text-center">{{reportedias[i].calendarizadas_visitadas}}</span>
+            </diV>
+        </div>
+    
+        <div class="col-auto">
+            <diV class="bg-gr-1 rounded-3 p-3">
+               <p class="mb-1">VISITAS NO CALENDARIZADAS</p>
+               <span class="fs-4 fw-bold text-center">{{reportedias[i].visitas_no_calendarizadas}}</span>
+            </diV>
+        </div>
+    
+        <div class="col-auto">
+            <diV class="bg-gr-1 rounded-3 p-3">
+               <p class="mb-1">TOTAL DE VISITAS</p>
+               <span class="fs-4 fw-bold text-center">{{reportedias[i].total_visitas}}</span>
+            </diV>
+        </div>
+    
+        <div class="col-auto">
+            <diV class="bg-gr-1 rounded-3 p-3">
+               <p class="mb-1">% CUMPLIMINETO</p>
+               <span class="fs-4 fw-bold text-center">{{reportedias[i].cumplimiento  | number:'1.2-2'}}</span>
+            </diV>
+        </div>
+    
+        <div class="col-auto">
+            <diV class="bg-gr-1 rounded-3 p-3">
+               <p class="mb-1">HORAS LABORADAS</p>
+               <span class="fs-4 fw-bold text-center">{{reportedias[i].horas_laboradas  | number:'1.2-2'}}</span>
+            </diV>
+        </div>
+    </div>
+
+    
+  <div style="overflow: auto;" class="mt-3 p-3">
+    <table class="table table-bordered">
+        <thead>
+          <tr style="text-align: center;">
+            <td scope="col">SUCURSAL</td>
+            <td scope="col">ENTRADA</td>
+            <td scope="col">SALIDA</td>
+            <td scope="col">ESTADÍA(HRS)</td>
+            <td scope="col">STATUS CHECADA</td>
+            <td scope="col">STATUS VISITA</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="text-align: center;" *ngFor="let item of reportedias[i].tabla">
+            <td>{{item.sucursal}}</td>
+            <td>{{item.entrada | date:'HH:mm' }}</td>
+            <td>{{item.salida | date:'HH:mm'}}</td>
+            <td>{{item.estadia | number:'1.2-2' }}</td>
+            <td>{{item.estatusC}}</td>
+            <td>{{item.estatusV}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+</div>
+
+
+</div>
+</div>
+
+<p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>

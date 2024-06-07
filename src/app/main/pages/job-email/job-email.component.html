@@ -1,0 +1,94 @@
+<div class="text">REPORTES</div>
+<div class="p-3">
+
+    <div class="row ps-4 pe-4">
+        <div class="col-md-3 p-3 p-0">
+            <p>PUESTO DE TRABAJO</p>
+            <p-multiSelect [options]="catdepartamentos" [(ngModel)]="puestosseleccionados" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
+        </div>
+        <div class="col-md-3 p-3 p-0">
+            <p>SELECCIONAR SEMANA</p>
+            <select class="form-select" [(ngModel)]="semanasel" style="height: 48px;" (change)="semanacalendario()">
+                <option value="{{item}}" *ngFor="let item of arr_semanas">{{item}}</option>
+              </select>
+        </div>
+
+        <div class="col-md-3 p-3 p-0">
+          <p>SEMANA DEL CALENDARIO</p>
+          <input type="number" class="form-control" style="height: 48px;" [(ngModel)]="semanaselc" disabled>
+      </div> 
+
+        <div class="col-md-3">
+            <p>&nbsp;</p>
+            <div class="d-flex justify-content-center mt-3 align-items-end">
+                <button class="btn btn-dark p-2" (click)="consultartodo()" style="height: 48px;"><i class='bx bx-search' ></i> CONSULTAR</button>
+                </div>    
+        </div>
+    </div>
+
+
+</div>
+
+<div class="ps-4 pe-4 mt-3 mb-3 pb-3 mt-4">
+
+  <div class="" *ngIf="calculado==false && loading==false">
+    <div class="p-4 rounded-3 bg-white w-100 d-flex justify-content-center">
+      <img src="assets/img/report2.jpg" style="width: 90%; max-width: 25rem;">
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4" *ngIf="loading==true">
+    <img src="assets/img/loadingreport.gif">
+  </div>
+
+<div class="rounded-3 bg-white p-3" *ngIf="calculado && loading==false" style="overflow: auto;">
+   
+  <h3 class="text-center">RESUMEN EMPLEADOS CON CALENDARIO</h3>
+  <table class="table-bordered" style="table-layout: auto; width: 100%;" id="reporte-tble"> 
+    <thead>
+      <tr class="table-dark text-center P-2" style="background-color: black;">
+        <th scope="col">PUESTO</th>
+        <th scope="col">NOMBRE</th>
+        <th scope="col">% CUMPLIMINETO VISITAS</th>
+        <th scope="col">% CUMPLIMINETO HORAS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filtrarReportesC()" class="text-center" [ngStyle]="{'background-color': item.color}">
+        <td>{{item.puesto}}</td>
+        <td>{{item.nombreemp}}</td>
+        <td>{{item.cumplimineto | number:'1.2-2'}}</td>
+        <td>{{item.cumpliminetohoras | number:'1.2-2'}}</td>
+      </tr>
+     
+    </tbody>
+  </table>
+
+  <h3 class="text-center mt-3">RESUMEN EMPLEADOS SIN CALENDARIO</h3>
+  <table class="table-bordered" style="table-layout: auto; width: 100%;" id="reporte-tble"> 
+    <thead>
+      <tr class="table-dark text-center P-2" style="background-color: black;">
+        <th scope="col">PUESTO</th>
+        <th scope="col">NOMBRE</th>
+        <th>TOTAL HORAS</th>
+        <th scope="col">% CUMPLIMINETO HORAS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filtrarReportesH()" class="text-center" [ngStyle]="{'background-color': item.color}">
+        <td>{{item.puesto}}</td>
+        <td>{{item.nombreemp}}</td>
+        <td>{{item.total_horas}}</td>
+        <td>{{item.cumpliminetohoras | number:'1.2-2'}}</td>
+      </tr>
+     
+    </tbody>
+  </table>
+
+
+</div>
+
+
+</div>
+
+<p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>

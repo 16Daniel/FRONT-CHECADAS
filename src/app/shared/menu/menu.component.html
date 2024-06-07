@@ -1,0 +1,93 @@
+<nav class="sidebar close">
+    <header>
+        <div class="image-text">
+            <span class="image">
+                <!--<img src="logo.png" alt="">-->
+                <i class='bx bxs-user-circle bx-md' ></i>
+            </span>
+            <div class="text logo-text">
+                <span class="name">REBEL WINGS</span>
+                <span class="profession">Web developer</span>
+            </div>
+        </div>
+        <i class='bx bx-chevron-right toggle'></i>
+    </header>
+    <div class="menu-bar">
+        <div class="menu">
+            <ul class="menu-links p-0">
+
+                <li class="nav-link">
+                    <a>
+                        <span class="text nav-text">REPORTES</span>
+                    </a>
+                </li>
+             
+                <li class="nav-link">
+                    <a 
+                    [routerLink]="'report'"
+                    >
+                    <i class='bx bx-detail icon'></i>
+                        <span class="text nav-text">Detalles</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a 
+                    [routerLink]="'report-general'"
+                    >
+                        <i class='bx bxs-report icon'></i>
+                        <span class="text nav-text">General</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a>
+                        <span class="text nav-text">CALENDARIOS</span>
+                    </a>
+                </li>
+
+                <li class="nav-link">
+                    <a 
+                    [routerLink]="'add-calendar'"
+                    >
+                        <i class='bx bx-calendar-plus icon' ></i>
+                        <span class="text nav-text">Agregar</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a 
+                    [routerLink]="'edit-calendar'"
+                    >
+                        <i class='bx bx-calendar-edit icon'></i>
+                        <span class="text nav-text">Actualizar</span>
+                    </a>
+                </li>
+                <li class="nav-link">
+                    <a  [routerLink]="'delete-calendar'">
+                        <i class='bx bx-calendar-x icon' ></i>
+                        <span class="text nav-text">Eliminar</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="bottom-content">
+            <li class="">
+                <a href="#">
+                    <i class='bx bx-log-out icon' ></i>
+                    <span class="text nav-text">Logout</span>
+                </a>
+            </li>
+            <li class="mode" style="display: none;">
+                <div class="sun-moon">
+                    <i class='bx bx-moon icon moon'></i>
+                    <i class='bx bx-sun icon sun'></i>
+                </div>
+                <span class="mode-text text">Dark mode</span>
+                <div class="toggle-switch">
+                    <span class="switch"></span>
+                </div>
+            </li>
+            
+        </div>
+    </div>
+</nav>
