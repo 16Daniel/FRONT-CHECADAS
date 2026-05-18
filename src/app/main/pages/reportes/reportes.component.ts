@@ -43,6 +43,8 @@ export default class ReportesComponent implements OnInit {
   public loading:boolean = false; 
   public calculado:boolean = false;
   public semanaselc:number =0; 
+  public now:Date = new Date(); 
+  public currentYear = this.now.getFullYear(); 
 
   constructor(public apiserv:ApiService, public cdr:ChangeDetectorRef,private messageService: MessageService,private datePipe: DatePipe)
 {
@@ -180,7 +182,7 @@ consultar()
     } else { numemcalendario++; }
   }
 
-  let primerlunes:Date = this.firstMondayOfYear(2024); 
+  let primerlunes:Date = this.firstMondayOfYear(this.currentYear); 
    let fechaini:Date = primerlunes; 
   if(this.semanasel >1)
   {

@@ -52,6 +52,10 @@ export default class ReportesGenComponent implements OnInit {
   public fechainicial:Date= new Date();
   public fechafinal:Date= new Date();
 
+  public now:Date = new Date(); 
+  public currentYear = this.now.getFullYear(); 
+
+
   constructor(public apiserv:ApiService, public cdr:ChangeDetectorRef,private messageService: MessageService,private datePipe: DatePipe)
 {
   this.getdepartamentos(); 
@@ -197,7 +201,7 @@ async consultartodo():Promise<void>
       await this.consultar(item); 
     }
     
-    let primerlunes:Date = this.firstMondayOfYear(2024); 
+    let primerlunes:Date = this.firstMondayOfYear(this.currentYear); 
     let fechaini:Date = primerlunes; 
    if(this.semanasel >1)
    {
@@ -232,7 +236,7 @@ async consultar(itemreporte:reportegeneral):Promise<void>
 
   return new Promise<void>((resolve, reject) => {
 
-    let primerlunes:Date = this.firstMondayOfYear(2024); 
+    let primerlunes:Date = this.firstMondayOfYear(this.currentYear); 
      let fechaini:Date = primerlunes; 
     if(this.semanasel >1)
     {
